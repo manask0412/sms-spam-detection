@@ -6,7 +6,8 @@
 3. [Features](#features)
 4. [Installation](#installation)  
 5. [Usage](#usage)
-6. [Contributors](#contributors)
+6. [Deployment](#deployment)
+7. [Contributors](#contributors)
 
 ---
 
@@ -98,10 +99,22 @@ Build an SMS spam classification pipeline that:
         - `roc_curve.png` – ROC curve with AUC.
      - These outputs help us assess the classifier’s performance and decision boundary.
 
-  ## Contributors
+## Deployment
+The SMS Spam Classifier is also available as a live interactive demo on **Hugging Face Spaces**, powered by **Gradio**.
+   
+### How it works
+Enter an SMS message into the input box. The model uses a pre-trained SVM pipeline with **Universal Sentence Encoder** embeddings to classify the message as either **Spam** or **Ham** (not spam).
+   
+### 🔗 Live Demo
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-On%20HuggingFace-blue?style=flat-square&logo=huggingface)](https://huggingface.co/spaces/manas0412/sms-spam-classifier-app)
+
+### 🖼️ Screenshot
+![App Screenshot](results/demo_screenshot.png)
+
+
+## Contributors
 
 | Name            | GitHub Profile                       | Role            |
 |-----------------|--------------------------------------|-----------------|
-| Manas Kumar Jena       | [@manask0412](https://github.com/manask0412) | Developer|
-
+| Manas Kumar Jena | [@manask0412](https://github.com/manask0412) | Developer|
 ---
