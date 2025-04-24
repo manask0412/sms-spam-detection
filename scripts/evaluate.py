@@ -66,6 +66,7 @@ def evaluate_svm_model(pipe, thresh, X_texts, y_true):
 
     # confusion matrix
     cm = confusion_matrix(y_true, y_pred)
+    plt.figure(figsize=(6,6))
     sns.heatmap(cm, annot=True, fmt='d',
                 xticklabels=['ham','spam'],
                 yticklabels=['ham','spam'],
@@ -74,6 +75,12 @@ def evaluate_svm_model(pipe, thresh, X_texts, y_true):
     plt.ylabel('Actual')
     plt.title('Confusion Matrix')
     plt.show()
+    
+    # Save confusion matrix to results folder
+    cm_path = 'results/confusion_matrix.png'
+    plt.savefig(cm_path)
+    print(f"Confusion matrix saved to {cm_path}")
+    plt.close()  # Close the figure after saving
 
     # ROC + AUC
     fpr, tpr, _ = roc_curve(y_true, y_prob)
@@ -88,6 +95,12 @@ def evaluate_svm_model(pipe, thresh, X_texts, y_true):
     plt.legend(loc='lower right')
     plt.grid(True)
     plt.show()
+
+    # Save ROC curve to results folder
+    roc_path = 'results/roc_curve.png'
+    plt.savefig(roc_path)
+    print(f"ROC curve saved to {roc_path}")
+    plt.close()  # Close the figure after saving
 
     print(f"AUC = {roc_auc:.4f}")
 
