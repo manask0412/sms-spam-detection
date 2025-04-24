@@ -29,13 +29,13 @@ Build an SMS spam classification pipeline that:
 3. **Training**  
    - Build an SVM pipeline with `StandardScaler`.  
    - Perform **GridSearchCV** over `C`, `kernel`, and `gamma` parameters.  
-   - Select best model by `F1-score`.  
+   - Select best model by **F1-score**.  
    - Tune classification threshold on validation data.
 
 4. **Evaluation**  
    - Load the saved model and threshold.  
-   - Compute `precision`, `recall`, `F1-Score`, `accuracy`, `confusion matrix`, and `ROC-AUC` on held-out test data.  
-   - Visualize results `(confusion heatmap, ROC curve)`.
+   - Compute **Precision**, **Recall**, **F1-Score**, **Accuracy**, **Confusion Matrix** and **ROC-AUC** on held-out test data.  
+   - Visualize results (`confusion heatmap`, `ROC curve`).
 
 ## Features
 - **Data Augmentation**:  
@@ -47,7 +47,7 @@ Build an SMS spam classification pipeline that:
 - **Threshold Optimization**:  
   - Sweep thresholds [0.1–0.9] on validation set to maximize F1.
 - **Comprehensive Evaluation**:  
-  - Classification report, confusion matrix heatmap, ROC curve with AUC.
+  - Classification report, Confusion Matrix heatmap, ROC curve with AUC.
 
 ## Installation
   1. **Clone the repository**:
@@ -70,17 +70,33 @@ Build an SMS spam classification pipeline that:
      ```bash
      python scripts/train.py
      ```
-      - Loads the dataset `data/train.csv`
-      - Applies augmentation, embedding, grid search, and threshold tuning.
-      - Saves the trained SVM model & threshold to `models/svm_spam_classifier.joblib`
+      - Loads the training dataset from `data/train.csv`
+      - Preprocesses and augments the text data with:
+         - **Synonym replacement** (using `WordNet`).
+         - **Typo Injection** for robustness.
+      - Embeds messages using the `Universal Sentence Encoder (USE)`.
+      - Builds an SVM classifier pipeline with `StandardScaler`.
+      - **Tunes hyperparameters** using `GridSearchCV` over:
+         - `C`, `kernel` and `gamma` values.
+         - Optimized for best F1-score using **5-Fold** **Cross-Validation**.
+      - **Optimizes the classification threshold** on validation data.
+      - Saves the best-performing model and tuned threshold to:
+         - `models/svm_spam_classifier.joblib`
+      - This step is crucial to create a **Robust**, **Generalizable Spam Detection Model**.
 
   2. **Evaluating the Model**:
      ```bash
      python scripts/evaluate.py
      ```
-     - Loads the held-out test data for model evaluation
-     - Loads the saved model & threshold
-     - Prints Classification Metrics and plots Confusion Matrix & ROC curve
+     - Loads the held-out test dataset from `data/evaluation.csv`
+     - Loads the trained SVM model and the optimal classification threshold from `models/svm_spam_classifier.joblib`
+     - Embeds test messages using the `Universal Sentence Encoder (USE)`
+     - Generates predictions and evaluates performance using:
+        - **Accuracy**, **Precision**, **Recall**, **F1-Score** and **AUC**.
+     - Saves the following visual outputs to the `results/` directory:
+        - `confusion_matrix.png` – Confusion matrix heatmap.
+        - `roc_curve.png` – ROC curve with AUC.
+     - These outputs help us assess the classifier’s performance and decision boundary.
 
   ## Contributors
 
